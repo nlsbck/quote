@@ -16,3 +16,7 @@ yarn-error.log
 /.vscode
 /composer.lock
 
+/.editorconfig
+/.gitattributes
+/.env.example
+/.ddev/
