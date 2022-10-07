@@ -11,21 +11,10 @@
 <div class="container">
     <h1 style="text-align: center">Quote</h1>
     <br>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{session('success')}}
-        </div>
-    @endif
-    <form method="POST" action="{{route('index', [], false)}}">
+    @include('errors')
+    @include('flash_message')
+
+    <form method="POST" action="{{route('saveQuote', [], false)}}">
         @csrf
         <div class="col">
             <label class="form-label" for="by">Quote by:</label>
@@ -50,14 +39,41 @@
         </div>
         <br>
     </form>
+
+
     @foreach($entries as $entry)
         <div class="card mb-3">
             <div class="card-body">
                 <p class="card-text">"{{$entry->text}}"</p>
-                <p class="card-subtitle">- <b>{{$entry->by}}</b> @if(!is_null($entry->source))in <i>{{$entry->source}}</i></p> @endif
+                <p class="card-subtitle text-muted">- <b>{{$entry->by}}</b> @if(!is_null($entry->source))in
+                    <i>{{$entry->source}}</i></p> @endif
             </div>
         </div>
     @endforeach
+
+    @if ($maxPages > 1)
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="{{route('index', ['page' => $currentPage - 1], false)}}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for($page = 1; $page <= $maxPages; $page++)
+                    <li class="page-item @if ($page == $currentPage) active @endif">
+                        <a class="page-link" href="{{route('index', ['page' => $page], false)}}">{{$page}}</a>
+                    </li>
+                @endfor
+                <li class="page-item">
+                    <a class="page-link" href="{{route('index', ['page' => $currentPage + 1], false)}}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    @endif
 </div>
 </body>
 </html>
