@@ -1,12 +1,11 @@
 <?php
 
-use App\Models\Person;
-use App\Models\Source;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -14,13 +13,14 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('quotes', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->text('text');
-            $table->foreignIdFor(Person::class);
-            $table->foreignIdFor(Source::class);
+            $table->string('name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -30,6 +30,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('quotes');
+        Schema::dropIfExists('people');
     }
 };

@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Http\Requests\QuoteRequest;
 use App\Models\Quote;
+use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 
 class IndexController
 {
+
     public function indexAction(Request $request)
     {
         $limit = max(env("LIMIT"), 1);
@@ -28,7 +31,14 @@ class IndexController
     public function saveAction(QuoteRequest $request)
     {
         $validated = $request->validated();
-        Quote::create($validated);
+        $by = Person::where('name', $validated['by'])->first();
+
+        if (is_null($by)) {
+            $by = Person::create([
+                'name' => $validated['by']
+            ]);
+        }
+        Quote::create(['text' => $validated['text'], 'person_id' => $by->id, 'source_id' => 0]);
         return redirect()->route('index')->with('success', 'Successfully saved!');
     }
 }

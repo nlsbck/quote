@@ -5,27 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Quote extends Model
+class Source extends Model
 {
     use HasFactory;
-
-    protected string $text = '';
-    protected int $person_id;
-    protected int $source_id;
+    protected string $source = '';
     protected $fillable = [
-        'text',
-        'person_id',
-        'source_id'
+      'source'
     ];
 
     public function person()
     {
         return $this->belongsTo(Person::class);
     }
-
-    public function source()
-    {
-        return $this->belongsTo(Source::class);
-    }
-
 }
