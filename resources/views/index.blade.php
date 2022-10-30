@@ -8,6 +8,7 @@
     <title>Quote Homepage</title>
 </head>
 <body>
+@include('navbar')
 <div class="container">
     <h1 style="text-align: center">Quote</h1>
     <br>

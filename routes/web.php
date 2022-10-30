@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\IndexController;
+use App\Controller\QuoteeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
 Route::get('/', [IndexController::class, 'indexAction'])->name('index');
-Route::post('/', [IndexController::class, 'saveAction'])->name('saveQuote');
+Route::post('/', [IndexController::class, 'saveQuote'])->name('saveQuote');
+
+Route::get('/quotee/{id}', [QuoteeController::class, 'getQuotee'])->name('getQuotee');
+
+require __DIR__.'/auth.php';

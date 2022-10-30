@@ -1,11 +1,9 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@include('bootstrap')
 
+<div class="container d-flex align-items-center justify-content-center" style="height: 70%">
+    <div class="">
+
+        <h1 style="text-align: center">Login</h1>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -14,18 +12,18 @@
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email')" />
+                <label class="form-label" for="email" :value="__('Email')" >Email</label>
 
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus />
 
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
+                <label class="form-label" for="password" :value="__('Password')" >Password</label>
 
-                <x-text-input id="password" class="block mt-1 w-full"
+                <input id="password" class="form-control"
                                 type="password"
                                 name="password"
                                 required autocomplete="current-password" />
@@ -42,16 +40,17 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+{{--                Forgot Passwort link                --}}
+{{--                @if (Route::has('password.request'))--}}
+{{--                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">--}}
+{{--                        {{ __('Forgot your password?') }}--}}
+{{--                    </a>--}}
+{{--                @endif--}}
 
-                <x-primary-button class="ml-3">
+                <button class="btn btn-success">
                     {{ __('Log in') }}
-                </x-primary-button>
+                </button>
             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+</div>

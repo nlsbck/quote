@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\QuoteRequest;
 use App\Models\Quote;
 use App\Models\Person;
@@ -9,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 
-class IndexController
+class IndexController extends Controller
 {
 
     public function indexAction(Request $request)
@@ -28,7 +29,7 @@ class IndexController
         return view('index', ['entries' => $entries, 'maxPages' => $maxPages, 'currentPage' => $page]);
     }
 
-    public function saveAction(QuoteRequest $request)
+    public function saveQuote(QuoteRequest $request)
     {
         $validated = $request->validated();
         $by = Person::where('name', $validated['by'])->first();
